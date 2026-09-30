@@ -13,7 +13,7 @@ export async function createShortUrl(req,res){
       visitHistory:[] // empty array for visit history
      });
      res.json({
-    shortUrl: `http://localhost:5000/url/${shortid}`
+    shortUrl: `${process.env.BASE_URL}/url/${shortid}`
      });
     }
 
