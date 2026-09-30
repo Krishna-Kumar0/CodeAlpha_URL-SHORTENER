@@ -1,0 +1,146 @@
+# 🔗 CodeAlpha URL Shortener
+
+A backend REST API built with **Node.js**, **Express**, and **MongoDB** that shortens long URLs and provides JWT-based user authentication with secure HTTP-only cookies.
+
+---
+
+## 🚀 Features
+
+- **URL Shortening** — Convert long URLs into short, shareable links
+- **URL Redirection** — Short URLs redirect to the original long URL
+- **Visit Tracking** — Tracks visit history with timestamps
+- **User Authentication** — Register, Login, and Logout with JWT
+- **Secure Cookies** — Tokens stored in HTTP-only cookies (XSS-safe)
+- **Password Hashing** — Passwords hashed with bcrypt
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Node.js | Runtime |
+| Express.js | Web Framework |
+| MongoDB | Database |
+| Mongoose | ODM |
+| JSON Web Token | Authentication |
+| bcrypt | Password Hashing |
+| nanoid | Short ID Generation |
+| dotenv | Environment Variables |
+
+---
+
+## 📁 Project Structure
+
+```
+Url_shortener/
+├── controllers/
+│   ├── authcontroller.js      # Register, Login, Logout logic
+│   └── urlcontroller.js       # URL shortening & redirect logic
+├── models/
+│   ├── user.js                # User schema (name, email, password)
+│   └── url.js                 # URL schema (shortUrl, longUrl, visitHistory)
+├── routes/
+│   ├── authroutes.js          # Auth endpoints
+│   └── urlroutes.js           # URL endpoints
+├── utilities/
+│   ├── generateToken.js       # JWT token generation
+│   └── verifyToken.js         # JWT token verification
+├── .env                       # Environment variables (not committed)
+├── .gitignore
+├── connection.js              # MongoDB connection
+├── index.js                   # Entry point
+├── package.json
+└── README.md
+```
+
+---
+
+## ⚙️ Setup & Installation
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18+)
+- [MongoDB](https://www.mongodb.com/) (local or Atlas)
+
+### Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Krishna-Kumar0/CodeAlpha_URL-SHORTENER.git
+   cd CodeAlpha_URL-SHORTENER
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Create a `.env` file** in the root directory
+   ```env
+   MONGO_URL=mongodb://localhost:27017/url_shortener
+   JWT_SECRET=your_secret_key_here
+   BASE_URL=http://localhost:5000
+   ```
+
+4. **Start the server**
+   ```bash
+   npm start
+   ```
+
+   The server will run on `http://localhost:5000`
+
+---
+
+## 📡 API Endpoints
+
+### 🔐 Authentication
+
+| Method | Endpoint | Description | Body |
+|--------|----------|-------------|------|
+| POST | `/auth/register` | Register a new user | `{ name, email, password }` |
+| POST | `/auth/login` | Login | `{ email, password }` |
+| POST | `/auth/logout` | Logout (clears cookie) | — |
+
+### 🔗 URL Shortener
+
+| Method | Endpoint | Description | Body |
+|--------|----------|-------------|------|
+| POST | `/url/shorten` | Shorten a URL | `{ url: "https://example.com" }` |
+| GET | `/url/:shortid` | Redirect to original URL | — |
+
+---
+
+## 📝 Example Usage (Postman)
+
+### Shorten a URL
+```
+POST http://localhost:5000/url/shorten
+Content-Type: application/json
+
+{
+  "url": "https://www.google.com"
+}
+```
+
+**Response:**
+```json
+{
+  "shortUrl": "http://localhost:5000/url/aB3xK9z"
+}
+```
+
+### Visit the shortened URL
+```
+GET http://localhost:5000/url/aB3xK9z
+→ Redirects to https://www.google.com
+```
+
+---
+
+## 👤 Author
+
+**Krishna Kumar**
+
+---
+
+
